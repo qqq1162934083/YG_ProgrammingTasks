@@ -30,19 +30,41 @@ namespace ConsoleApp1
                 {-1,-1,-1 }
             };
 
+            //像素矩阵2
+            int[,] matrixArray2 = new int[,]
+            {
+                {1, 1, 7, 1, 8, 1, 7, 1, 1},
+                {1, 1, 1, 1, 5, 1, 1, 1, 1},
+                {1, 1, 1, 5, 5, 5, 1, 1, 7},
+                {7, 1, 1, 5, 5, 5, 1, 1, 1},
+                {1, 1, 1, 5, 5, 5, 1, 8, 1},
+                {1, 8, 1, 1, 5, 1, 1, 1, 1},
+                {1, 8, 1, 1, 5, 1, 1, 8, 1},
+                {1, 1, 1, 1, 5, 1, 1, 1, 1},
+                {1, 1, 7, 1, 8, 1, 7, 1, 1}
+            };
+
+            //模板矩阵2
+            int[,] template2 = new int[,]
+            {
+                { 0, -1, 0 },
+                {-1,  4, 0 },
+                { 0, -1, 0 }
+            };
+
             Console.WriteLine("像素矩阵：");
             Console.WriteLine();
-            tool.PrintMatrix(matrixArray);
+            tool.PrintMatrix(matrixArray2);
             Console.WriteLine();
             Console.WriteLine();
 
             Console.WriteLine("模板矩阵：");
             Console.WriteLine();
-            tool.PrintMatrix(template);
+            tool.PrintMatrix(template2);
             Console.WriteLine();
             Console.WriteLine();
 
-            int[,] resultMatrixArray = tool.ConvetToJuanJiResult(matrixArray, template);
+            int[,] resultMatrixArray = tool.ConvetToJuanJiResult(matrixArray2, template2,CalculateType.FourAreas);
 
             Console.WriteLine("计算结果：");
             Console.WriteLine();

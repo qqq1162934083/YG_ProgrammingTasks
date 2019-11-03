@@ -14,7 +14,7 @@ namespace ConsoleApp1
         /// <param name="matrixArray">图像矩阵数组</param>
         /// <param name="template">模板矩阵数组</param>
         /// <returns>返回转化后的图像矩阵</returns>
-        public int[,] ConvetToJuanJiResult(int[,] matrixArray, int[,] template)
+        public int[,] ConvetToJuanJiResult(int[,] matrixArray, int[,] template,CalculateType calType)
         {
             //计算图像元个数
             int calculateCount = 0;
@@ -32,7 +32,17 @@ namespace ConsoleApp1
                 for (int j = 0; j < columnCount; j++)
                 {
                     int[,] templateResult = ExtractMatrixByTemplate(matrixArray, (templateRowCount - 1) / 2, (templateColumnCount - 1) / 2, i, j);
-                    result[i, j] = GetResult(template, templateResult);
+                    switch (calType)
+                    {
+                        case CalculateType.FourAreas:
+                            result[i, j] = GetFourAreasResult(template, templateResult);
+                            break;
+
+                        case CalculateType.EightAreas:
+                            result[i, j] = GetEightAreasResult(template, templateResult);
+                            break;
+                    }
+                    
                     calculateCount++;
                     Console.WriteLine("计算中......数量:" + calculateCount);
 
@@ -49,7 +59,7 @@ namespace ConsoleApp1
         /// <param name="matrixA">模板A</param>
         /// <param name="matrixB">模板B</param>
         /// <returns>返回计算值</returns>
-        public int GetResult(int[,] matrixA, int[,] matrixB)
+        public int GetEightAreasResult(int[,] matrixA, int[,] matrixB)
         {
             int result = 0;
             //两模板的行数和列数相同
@@ -62,6 +72,23 @@ namespace ConsoleApp1
                     result += matrixA[i, j] * matrixB[i, j];
                 }
             }
+            return result;
+        }
+
+
+        public int GetFourAreasResult(int[,] matrixA, int[,] matrixB)
+        {
+            int result = 0;
+
+            //上下
+            result += matrixA[0, 1] * matrixB[0, 1];
+            result += matrixA[2, 1] * matrixB[2, 1];
+            //中间
+            result += matrixA[1, 1] * matrixB[1, 1];
+            //左右
+            result += matrixA[1, 0] * matrixB[1, 0];
+            result += matrixA[1, 2] * matrixB[1, 2];
+            
             return result;
         }
 
